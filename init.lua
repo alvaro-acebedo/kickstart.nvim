@@ -546,6 +546,9 @@ require('lazy').setup({
           -- Find references for the word under your cursor.
           map('grr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
 
+          -- or list references for the word under your cursor.
+          map('grl', vim.lsp.buf.references, '[G]oto [R]eferences [L]ist')
+
           -- Jump to the implementation of the word under your cursor.
           --  Useful when your language has ways of declaring types without an actual implementation.
           map('gri', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
