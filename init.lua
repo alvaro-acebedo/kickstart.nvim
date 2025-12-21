@@ -219,6 +219,20 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- [[ Folding ]]
+-- See `:help folding`
+
+-- Set fold method to marker for C/C++ files and define custom markers
+vim.api.nvim_create_augroup('CppFolding', { clear = true })
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp' },
+  group = 'CppFolding',
+  callback = function()
+    vim.opt_local.foldmethod = 'marker'
+    vim.opt_local.foldmarker = '#pragma region,#pragma endregion'
+  end,
+})
+
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
