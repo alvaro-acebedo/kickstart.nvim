@@ -165,9 +165,9 @@ return {
         program = function()
           return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
-        cwd = '${workspaceFolder}/build/dev',
+        cwd = '${workspaceFolder}',
         stopOnEntry = false,
-        args = { 'ls' },
+        args = {},
       },
       {
         name = 'Attach to process',
