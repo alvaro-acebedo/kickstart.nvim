@@ -163,11 +163,16 @@ return {
         type = 'codelldb',
         request = 'launch',
         program = function()
-          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/build/dev/', 'file')
         end,
         cwd = '${workspaceFolder}',
         stopOnEntry = false,
-        args = {},
+        args = function()
+          local args_str = vim.fn.input {
+            prompt = 'Arguments: ',
+          }
+          return vim.split(args_str, ' +')
+        end,
       },
       {
         name = 'Attach to process',
