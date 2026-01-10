@@ -95,6 +95,7 @@ return {
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
         'delve',
+        'codelldb',
       },
     }
 
@@ -144,5 +145,43 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    -- Install C++ specific config
+    dap.adapters.codelldb = {
+      type = 'server',
+      port = '${port}',
+      executable = {
+        command = vim.fn.exepath 'codelldb',
+        args = { '--port', '${port}' },
+        detached = false,
+      },
+    }
+
+    dap.configurations.cpp = {
+      {
+        name = 'Launch',
+        type = 'codelldb',
+        request = 'launch',
+        program = function()
+          return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end,
+        cwd = '${workspaceFolder}/build/dev',
+        stopOnEntry = false,
+        args = { 'ls' },
+      },
+      {
+        name = 'Attach to process',
+        type = 'codelldb',
+        request = 'attach',
+        pid = function()
+          return require('dap.utils').pick_process()
+        end,
+        cwd = '${workspaceFolder}',
+      },
+    }
+
+    -- Apply the same config to C and Rust if needed
+    dap.configurations.c = dap.configurations.cpp
+    dap.configurations.rust = dap.configurations.cpp
   end,
 }
