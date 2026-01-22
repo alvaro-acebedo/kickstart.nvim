@@ -173,6 +173,7 @@ return {
           }
           return vim.split(args_str, ' +')
         end,
+        --args = { 'ls', '-i', '12..14' },
       },
       {
         name = 'Attach to process',
