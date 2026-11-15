@@ -121,6 +121,12 @@ end)
 -- Enable break indent
 vim.o.breakindent = true
 
+-- Indent with spaces (matches prettier's default), so no tabs appear before format-on-save
+vim.o.expandtab = true
+vim.o.shiftwidth = 2
+vim.o.tabstop = 2
+vim.o.softtabstop = 2
+
 -- Save undo history
 vim.o.undofile = true
 
